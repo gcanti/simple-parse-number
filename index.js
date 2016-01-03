@@ -1,22 +1,7 @@
-function shallowCopy(a, b) {
-  if (b) {
-    for (var k in b) {
-      if (b.hasOwnProperty(k)) {
-        a[k] = b[k];
-      }
-    }
-  }
-  return a;
-}
-
-function getOptions(options) {
-  var defaults = {
-    grouping: ',',
-    decimal: '.'
-  };
-  return shallowCopy(defaults, options);
-}
-
+var defaults = {
+  grouping: ',',
+  decimal: '.'
+};
 var regexp = /([.*+?^${}()|[\]\/\\])/g;
 
 function escapeRegexp(s) {
@@ -24,12 +9,13 @@ function escapeRegexp(s) {
 }
 
 function stripSymbols(s, grouping, decimal) {
-  s = s.replace(new RegExp(escapeRegexp(grouping), 'gm'), '');
-  return s.replace(new RegExp(escapeRegexp(decimal), 'gm'), '.');
+  return s
+    .replace(new RegExp(escapeRegexp(grouping), 'gm'), '')
+    .replace(new RegExp(escapeRegexp(decimal), 'gm'), '.');
 }
 
 function parseNumber(s, options) {
-  options = getOptions(options);
+  options = options || defaults;
   return parseFloat(stripSymbols(s, options.grouping, options.decimal));
 }
 

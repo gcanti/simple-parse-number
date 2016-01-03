@@ -13,9 +13,10 @@ tape('parseNumber(s, options)', function (t) {
   });
 
   t.test('should handle options.symbols', function (assert) {
-    assert.plan(2);
+    assert.plan(3);
     assert.strictEqual(parseNumber('1.000,342', { decimal: ',', grouping: '.' }), 1000.342);
     assert.strictEqual(parseNumber('-1.000,342', { decimal: ',', grouping: '.' }), -1000.342);
+    assert.strictEqual(parseNumber('-1,000.342'), -1000.342);
   });
 
 });
